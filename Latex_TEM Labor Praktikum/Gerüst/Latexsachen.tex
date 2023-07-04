@@ -1,0 +1,89 @@
+% teilt dem Editor mit, dass er utf8 als encoding verwenden soll
+% !TeX encoding = utf8
+
+% festlegen und modifizieren der Dokumentenklasse
+\documentclass[
+	pdflatex,						%% PDFtex verwenden
+	a4paper, 						% A4 Format benutzen
+	12pt, 							% Schriftgröße 12 für normalen Text
+	headsepline						% Linie nach Kopfzeile
+]{scrartcl}							%% KOMA-Script Dokumentklasse "scrartcl" verwenden
+
+% einbinden der Pakete
+\usepackage{tikz}
+\usepackage{amsmath} 						% Paket für Formelumgebungen
+\usepackage{amssymb} 						% Paket fürMathe-Symbole
+\usepackage{array}       					% Paket zum Erweitern der Tabelleneigenschaften
+\usepackage{graphicx}  						% Paket um Grafiken einbetten zu können
+\usepackage{color}       					% Paket für Farben im PDF (Seitenfarbe und Textfarbe)
+\usepackage{makeidx}   						% Paket für die Indexerstellung.
+\usepackage[utf8]{inputenc} 				% Paket ermöglicht Eingabe von Umlauten
+\usepackage[T1]{fontenc} 					% Paket für Schriftart, Verwenden von T1 Fonts in Ausgabe zur Darstellung von Umlauten
+\usepackage{url}     						% Paket zur richtigen Darstellung von URLs
+\usepackage[a4paper,left=2.5cm,right=2.0cm]{geometry} % Paket zum Einstellen der Seitenränder
+\usepackage[ngerman]{babel} 				% Paket für Zeichensetzung und Worttrennung, deutsche Zeichensetzung verwenden
+\usepackage{esvect}  						% Paket für Vektorpfeile: \vv{x}
+\usepackage{caption} 						
+	\setlength{\captionmargin}{10pt} 		% extra Abstand rechts und links für Beschriftung
+	\renewcommand{\captionfont}{\footnotesize}	% Beschriftung ist in Fußnotengröße
+\usepackage{subcaption}
+\usepackage[section]{placeins} 				% Paket für erweiterte Positionierung von Gleitobjekten, Gleitobjekte dürfen Abschnitt nicht verlassen
+\usepackage{float}							% Paket zur erweiterung der Gleitobjektfunktionalitäten, ermöglicht feste Positionierung mit \begin{table}[H]
+\usepackage[nottoc,notlot,notlof,numbib]{tocbibind} % Paket zum Einstellen von Inhaltsverzeichnis, schießt Auflistung von Inhalts-, Abbildungs- und Tabellenverzeichnis im Inhaltsverzeichnis aus, numeriert Literaturverzeichnis
+
+\usepackage[hidelinks]{hyperref}			% Ermöglicht Weblinks mit \href
+\usepackage{multirow}						% Ermöglicht mehrzeilige Tabellenzellen
+\usepackage{underscore} 					% Ermöglicht es, Unter_striche im Text zu verwenden.
+\usepackage{newunicodechar}					% Ermöglicht es, neue Unicode-Zeichen zu definieren
+% \usepackage[decimalsymbol=comma]{siunitx}	% Schreiben von SI-Einheiten
+\usepackage[loose]{units}					% Schreiben von Einheiten
+\usepackage{subfig}
+\usepackage[german=quotes]{csquotes}
+%ausgeklammert wegen fehlermeldung??????????????????
+%\sisetup{locale = DE, range-units = brackets, range-phrase = {\text{\textendash}}, per-mode = symbol, separate-uncertainty}
+\usepackage{hyperref} %Automatische Refferenz auf Bilder
+\usepackage[ngerman]{cleveref,babel}
+%\usepackage[ngerman]{babel}
+\usepackage[figurename=Abb.]{caption}
+% Setzen globaler Parameter
+\graphicspath{{Abbildungen/}} 					% legt globalen Pfad für Bilddateien fest
+\setlength{\parindent}{0mm} 				% unterdrückt den Absatzeinzug % Anmerkung Leo: Warum? Das ist doch hässlich sonst? Das Auge braucht ein Signal, dass hier ein neuer Absatz kommt!
+%\numberwithin{equation}{section}			% Modifiziert die Gleichungsnummerierung zu (<Kapitelnummer>.<ID innerhalb Kapitel>)
+
+
+% lädt die Infos der Gruppe und des Versuches aus Metadaten.tex
+\input{Metadaten}
+
+% passt Kopfzeile an
+\pagestyle{myheadings}
+\markright{\versuch \hfill \datumversuch}
+\markright{RP ~~\semester \hfill \versuch \hfill \datumversuch}
+
+
+\begin{document}
+
+% fügt die Titelseite ein
+\input{Titelseite}
+
+% Inhaltsverzeichnis
+\pagenumbering{Roman} 	% römische Zahlen (I,II,III,IV,...) für Inhaltsverzeichnis
+\tableofcontents		% Inhaltsverzeichnis
+\listoffigures			% Abbildungsverzeichnis
+%\listoftables			% Tabellenverzeichnis
+
+% der Rest ist arabisch (1,2,3,4,...) numeriert:
+\pagebreak
+\pagenumbering{arabic}	% aribische Numerierung
+\setcounter{page}{1}	% setzt den Seitenzähler auf "1"
+
+% zusammenfügen der Abschnitte
+\input{Probenpräparation}
+\input{Grundlagen&Beugung}
+\input{Holographie}
+\input{STEM}
+%\input{STEM-EDX}
+%\input{Zusammenfassung}
+\input{Literatur}% zum Verweis auf Items aus Literatur.tex verwendet: \cite{lit:paper}
+% \input{Appendix}
+
+\end{document}
